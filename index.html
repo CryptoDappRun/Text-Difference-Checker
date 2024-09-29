@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Difference Checker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .diff-highlight {
+            background-color: #f8d7da;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Text Difference Checker</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <textarea id="text1" class="form-control" rows="10" placeholder="Enter first text here..."></textarea>
+            </div>
+            <div class="col-md-6">
+                <textarea id="text2" class="form-control" rows="10" placeholder="Enter second text here..."></textarea>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <button class="btn btn-primary" id="compareBtn">Compare</button>
+        </div>
+        <div id="result" class="mt-4"></div>
+    </div>
+
+    <script>
+        document.getElementById('compareBtn').addEventListener('click', function() {
+            const text1 = document.getElementById('text1').value.split('\n');
+            const text2 = document.getElementById('text2').value.split('\n');
+
+            let resultHTML = '';
+            const maxLength = Math.max(text1.length, text2.length);
+
+            for (let i = 0; i < maxLength; i++) {
+                const line1 = text1[i] || '';
+                const line2 = text2[i] || '';
+
+                // Check if the lines are different
+                if (line1 !== line2) {
+                    resultHTML += `<p class="diff-highlight">Line ${i + 1}: ${line1}</p>`;
+                }
+            }
+
+            if (resultHTML == "") {
+                document.getElementById('result').innerHTML = "Two texts are the same";
+            } else {
+                // Display the result
+                document.getElementById('result').innerHTML = resultHTML;
+            }
+        });
+    </script>
+</body>
+</html>
